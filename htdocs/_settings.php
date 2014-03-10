@@ -16,7 +16,8 @@ return array(
 	// Available pages
 	"pages_whitelist" => array 	(
 									"home",
-									"manage-rules"
+									"manage-rules",
+									"manage-actions"
 								),
 
 	// Api

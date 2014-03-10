@@ -8,9 +8,10 @@ class UI {
 	protected $error_template = 'error.phtml';
 	protected $debug_template = 'debug.phtml';
 	protected $vars = array();
+    protected $conf = array();
 
     // Check that head & footer are available at class construct
-	public function __construct($template_dir = null) {
+	public function __construct() {
         if (file_exists($this->template_dir . $this->header_template) === false) {
             kill("Header template missing ($this->template_dir$this->header_template)",false);
         }
@@ -33,6 +34,8 @@ class UI {
                 require("inc/inc.$page.php");
             }
             $this->render("tpl.$page.phtml");
+        } else {
+            $this->render("404");
         }
     }
 
@@ -40,6 +43,11 @@ class UI {
     // Get wanted template file and include it
     // Show error if template is missing
     public function render($template_file) {
+        if ($template_file == "404") {
+            header('HTTP/1.0 404 Not Found');
+            $template_file = "tpl.404.phtml";
+        }
+
         if (file_exists($this->template_dir . $template_file)) {
             include($this->template_dir . $this->header_template);
             include($this->template_dir . $template_file);
