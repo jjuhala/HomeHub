@@ -1,0 +1,12 @@
+RewriteEngine on
+
+#  Force /index.php -> /
+RewriteCond %{THE_REQUEST} ^.*/index\.php 
+RewriteRule ^(.*)index.php$ /$1 [R=301,L]
+
+#  Pwetty urls --
+#    /foo -> /foo/ (301)
+#    /foo/ -> index.php?q=foo
+RewriteRule ^([a-zA-Z0-9_-]+)$ /$1/ [R=301,L]
+RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?q=$1
+# RewriteRule ^([a-zA-Z0-9_-]+)/(.+)$ index.php?q=$1&qa=$2
