@@ -8,11 +8,12 @@ try {
     		"mysql:host=$host;". // HOST
     		"dbname=$db", // DB
     		$user, // USER
-    		$pw); // PASSWORD
+    		$pw,  // PASSWORD
+            array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $conn;
 } catch(PDOException $pdoer) {
-    $ui->kill("Couldn't connect to MySQL.<br>PDO Exeption:" . $pdoer->getMessage());
+    $ui->kill("Couldn't connect to MySQL.<br>PDO Exception: " . $pdoer->getMessage());
 }
 
 ?>

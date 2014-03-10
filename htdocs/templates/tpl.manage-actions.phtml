@@ -23,9 +23,158 @@
 </div>
 
 <h2>Current actions</h2>
+<div class="panel panel-default">
+	<div class="panel-heading">Current actions</div>
+	<table class="table">
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>Commands</th>
+			<th>Triggers</th>
+			<th>SoUI</th>
+			<th>Notes</th>
+			<th>Manage</th>
+			<th>Run</th>
+		</tr>
+
+		<?php
+			// Loop through all actions
+			foreach ($this->actions_list as $action):
+		?>
+				<tr>
+					<td><?=$action['actionID']?></td>
+					<td><?=$action['name']?></td>
+					<td><?=$action['commandList']?></td>
+					<td><?=$action['triggers']?></td>
+					<td><?=$action['showOnUI']?></td>
+					<td><?=$action['notes']?></td>
+					<td>
+						<div class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								Action <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="#">Dropdown link</a></li>
+								<li><a href="#">Dropdown link</a></li>
+							</ul>
+						</div>
+					</td>
+					<td>
+						<button class="a_run tippy" title="Run action '<?=$action['name']?>'" data-actionid="<?=$action['actionID']?>" data-actionname="<?=$action['name']?>">
+							<i class="fa fa-play-circle fa-lg"></i>
+						</button>
+					</td>
+				</tr>
+		<?php
+			endforeach;
+		?>
+
+	</table>
+</div>
 
 
 
 
-<h2>Add new action</h2>
+<div class="row" style="margin-top:100px;">
+	<div class="col-xs-6 col-md-4">
+		<h3>Add new action</h3>
+		<form>
+			<div class="form-group">
+				<label for="inputEmail">Action name</label>
+				<i 
+					onclick="bootbox.alert('<h3>Action name</h3>You can choose any action name you wish, it doesn\'t matter nor has to match with anything');" 
+					class="fa fa-question-circle help-btn tippy"
+					title="Click for help"
+				>
+				</i>
+				<input type="email" class="form-control" id="inputEmail" name="name" placeholder="Action name">
+			</div>
+			<div class="form-group">
+				<label for="inputEmail">Commands</label>
+				<input type="email" class="form-control" id="inputEmail" name="commandList" placeholder="cmd1name|cmd2name|cmd3name|...">
+			</div>
+			<div class="form-group">
+				<label for="inputEmail">Triggers</label>
+				<input type="email" class="form-control" id="inputEmail" name="triggers" placeholder="sensor1id|sensor2id|sensor3id|...">
+			</div>
+			<div class="checkbox">
+	            <label><input type="checkbox" name="showOnUI">Show on dashboard</label>
+	        </div>
+			Notes<br>
+			<textarea rows="4" class="form-control">...</textarea>
 
+		</form>
+	</div>
+	<div class="col-xs-6 col-md-8">
+		<h3>Quickly check available commands and triggers</h3>
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#quicklist-commands" data-toggle="tab">Commands</a></li>
+			<li><a href="#quicklist-triggers" data-toggle="tab">Triggers</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane active" id="quicklist-commands">
+				<table class="table limit-table">
+					<tr>
+						<th class="col-md-1">#</th>
+						<th>Name</th>
+						<th>Command</th>
+						<th>Rule list</th>
+						<th>Notes</th>
+						<th class="col-md-1">Run</th>
+					</tr>
+
+					<?php
+						// Loop through all actions
+						foreach ($this->commands_list as $command):
+					?>
+							<tr>
+								<td><?=$command['commandID']?></td>
+								<td><?=$command['name']?></td>
+								<td><?=$command['command']?></td>
+								<td><?=$command['ruleList']?></td>
+								<td><?=$command['notes']?></td>
+								<td>
+									<button class="c_run tippy" title="Run command '<?=$command['name']?>'" data-actionid="<?=$command['commandID']?>" data-actionname="<?=$command['name']?>">
+										<i class="fa fa-play-circle fa-lg"></i>
+									</button>
+								</td>
+							</tr>
+					<?php
+						endforeach;
+					?>
+
+				</table>
+			</div>
+			<div class="tab-pane" id="quicklist-triggers">
+				<table class="table limit-table">
+					<tr>
+						<th class="col-md-1">#</th>
+						<th>Name</th>
+						<th>cmd_name</th>
+						<th>Last update</th>
+						<th class="col-md-1">Show On UI</th>
+						<th>Notes</th>
+					</tr>
+
+					<?php
+						// Loop through all actions
+						foreach ($this->sensors_list as $sensor):
+					?>
+							<tr>
+								<td><?=$sensor['sensorID']?></td>
+								<td><?=$sensor['name']?></td>
+								<td><?=$sensor['cmd_name']?></td>
+								<td><?=$sensor['lastUpdate']?></td>
+								<td><?=$sensor['showOnUI']?></td>
+								<td><?=$sensor['notes']?></td>
+							</tr>
+					<?php
+						endforeach;
+					?>
+
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

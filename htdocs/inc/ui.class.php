@@ -31,7 +31,7 @@ class UI {
             // Valid page
             // Check if there's additonal file to require for this page
             if (file_exists("inc/inc.$page.php")) {
-                require("inc/inc.$page.php");
+                include("inc/inc.$page.php");
             }
             $this->render("tpl.$page.phtml");
         } else {
@@ -43,6 +43,8 @@ class UI {
     // Get wanted template file and include it
     // Show error if template is missing
     public function render($template_file) {
+
+        // if 404 template is wanted, set 404 headers and adjust the template name
         if ($template_file == "404") {
             header('HTTP/1.0 404 Not Found');
             $template_file = "tpl.404.phtml";
@@ -57,6 +59,17 @@ class UI {
         }
     }
 
+    // Basic MySQL query
+    // Returns array of fetched items
+    public function query($query) {
+        try {
+            $result = $this->pdo->query($query);
+        } catch(PDOException $pdoer) {
+            $this->kill("MySQL Query failed.<br>PDO Exception: " . $pdoer->getMessage());
+        }
+
+        return $result;
+    }
 
 
     // Get error-template, show it and stop execution

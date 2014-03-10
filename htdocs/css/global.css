@@ -1,0 +1,16 @@
+.toast {
+   opacity: 1 !important;
+}
+
+#toast-container > div {
+   opacity: 1 !important; 
+}
+
+.help-btn {
+	cursor: help;
+}
+
+.limit-table {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
