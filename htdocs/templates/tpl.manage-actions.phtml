@@ -1,25 +1,4 @@
 
-<!-- Check if we need to show errors -->
-<?php if ($this->showError !== false) : ?>
-	<?php foreach($this->errorMsg as $error) : ?>
-		<div class="alert alert-danger">
-			<i class="fa fa-exclamation-triangle fa-4x floleft"></i>
-			<h4><strong><?=$error[0]?></strong></h4>
-			<?=$error[1]?>
-		</div>
-	<?php endforeach; ?>
-<?php endif; ?>
-
-<!-- Check if we need to show notices -->
-<?php if ($this->showNotice !== false) : ?>
-	<?php foreach($this->noticeMsg as $notice) : ?>
-		<div class="alert alert-success">
-			<i class="fa fa-check fa-4x floleft"></i>
-			<h4><strong><?=$notice[0]?></strong></h4>
-			<?=$notice[1]?>
-		</div>
-	<?php endforeach; ?>
-<?php endif; ?>
 
 
 <div class="row">
