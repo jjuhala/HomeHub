@@ -1,10 +1,10 @@
-.toast {
+/*.toast {
    opacity: 1 !important;
 }
 
 #toast-container > div {
    opacity: 1 !important; 
-}
+}*/
 
 .help-btn {
 	cursor: help;
@@ -14,3 +14,55 @@
     table-layout: fixed;
     word-wrap: break-word;
 }
+.padding5px {
+	padding:5px;
+}
+.padding5pxlr {
+	padding-left:5px;
+	padding-right:5px;
+
+}
+.nomargin {
+	margin:0;
+}
+.floleft {
+	float:left;
+	padding-right:15px;
+}
+
+
+
+
+
+
+
+
+
+
+/* Flush footer to bottom */
+
+html, body {
+height: 100%;
+}
+body {
+padding-top:75px;
+}
+#wrap {
+min-height: 100%;
+}
+
+#main {
+overflow:auto;
+padding-bottom:90px;
+}
+.footer {
+position: relative;
+margin-top: -90px;
+height: 90px;
+clear:both;
+padding-top:20px;
+margin-bottom:0;
+} 
+
+
+
