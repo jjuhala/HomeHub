@@ -1,7 +1,7 @@
 toastr.options = {
 	"closeButton": true,
 	"debug": false,
-	"positionClass": "toast-top-right",
+	"positionClass": "toast-bottom-left",
 	"onclick": null,
 	"showDuration": "300",
 	"hideDuration": "1000",
@@ -18,8 +18,10 @@ toastr.options = {
 // Enable bootstrap tooltips
 $(function() {
 	$('.tippy').tooltip();
-	
 });
+
+
+
 $(".a_run").click(function(){
 	var request_reply = json_req("/backend/run_action.php?a=" + $(this).attr('data-actionid'));
 	if (request_reply.status == "ok") {
