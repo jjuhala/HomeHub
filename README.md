@@ -4,7 +4,7 @@ HomeHub is a open source home automation project built with C++ (Arduino), PHP+M
   
   
 #### Please note that HomeHub is a work-in-process and is far from being ready.
-#### At the moment it's in a very early stage and this read me is more of a description of what it will be. Because of such an early development stage I wont list which features work and which dont.
+#### At the moment this project is in a very early stage and this read me is more of a description of what it will be. Because of such an early development stage I won't list which features work already and which don't yet.
   
   
 ### Features
