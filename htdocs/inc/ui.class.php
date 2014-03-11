@@ -10,6 +10,14 @@ class UI {
 	protected $vars = array();
     protected $conf = array();
 
+
+    // By default don't show any errors or notices
+    protected $showError = false;
+    protected $errorMsg = [];
+    protected $showNotice = false;
+    protected $noticeMsg = [];
+
+
     // Check that head & footer are available at class construct
 	public function __construct() {
         if (file_exists($this->template_dir . $this->header_template) === false) {
@@ -18,6 +26,8 @@ class UI {
         if (file_exists($this->template_dir . $this->footer_template) === false) {
             kill("Footer template missing ($this->template_dir$this->footer_template)",false);
         }
+
+
     }
 
     // Validate input, require additional php dependencies and render the page
@@ -59,6 +69,20 @@ class UI {
         }
     }
 
+    public function addError($errorTitle,$errMsg)
+    {
+        $this->showError = true;
+        $this->errorMsg[] = array($errorTitle,$errMsg);
+    }
+
+    public function addNotice($noticeTitle,$noticeMsg)
+    {
+        $this->showNotice = true;
+        $this->noticeMsg[] = array($noticeTitle,$noticeMsg);
+    }
+
+
+
     // Basic MySQL query
     // Returns array of fetched items
     public function query($query) {
@@ -81,7 +105,7 @@ class UI {
             if ($include_adtns) include($this->template_dir . $this->footer_template);
             exit();
         } else {
-            throw new Exception('Fatal error happened. Error template, which would give more further information,'.
+            throw new Exception('Fatal error happened. Error template, which would give more informative error,'.
             	'seems to be missing from path: ' . $this->template_dir . $this->error_template);
         }
     }
