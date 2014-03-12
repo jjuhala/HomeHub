@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `hh_commands` (
   `ruleList` varchar(300) NOT NULL,
   `notes` varchar(300) NOT NULL,
   PRIMARY KEY (`commandID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 CREATE TABLE IF NOT EXISTS `hh_data` (
   `ID` int(10) unsigned NOT NULL,
@@ -35,23 +35,24 @@ CREATE TABLE IF NOT EXISTS `hh_data` (
 
 CREATE TABLE IF NOT EXISTS `hh_rules` (
   `ruleID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `dataID` int(10) unsigned NOT NULL,
+  `ruleName` varchar(100) NOT NULL,
+  `sensorName` varchar(100) NOT NULL,
   `rule` varchar(1) NOT NULL,
-  `value` int(11) NOT NULL,
+  `value` varchar(100) NOT NULL,
   `notes` varchar(300) NOT NULL,
   PRIMARY KEY (`ruleID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 CREATE TABLE IF NOT EXISTS `hh_sensors` (
   `sensorID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `cmd_name` varchar(100) NOT NULL,
-  `currentVal` varchar(50) NOT NULL,
+  `currentVal` varchar(50) DEFAULT NULL,
   `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `showOnUI` tinyint(1) NOT NULL,
   `notes` varchar(300) NOT NULL,
   PRIMARY KEY (`sensorID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
