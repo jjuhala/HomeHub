@@ -1,0 +1,193 @@
+
+
+
+<div class="row">
+	<div class="col-xs-6 col-md-7">
+		<div class="page-header">
+			<h1>Manage rules</h1>
+			<h2><small>Add, delete or edit rules</small></h2>
+		</div>
+		
+	</div>
+	<div class="col-xs-6 col-md-5" style="margin-top:10px;float:right;">
+		<div class="alert alert-info">
+			<p>
+				<strong>Rules</strong><br>
+				- are the elements which you can limit when to execute the commands with.<br>
+				- are the elements with what you can limit when to execute the commands.<br>
+
+				- can be added to <a href="/manage-commands/">commands</a>.<br>
+				- can have 3 types of comparison operator: greater than (>), less than (<), equal (=).<br> 
+				- can have special time "sensor" values:<br>
+				<p style="margin-left:25px;">
+					time:*any <a href="http://fi2.php.net/manual/en/function.date.php">PHP date()-function</a> operators*<br>
+					Example:<br>
+					Hour in 24h format: "time:H"<br>
+					Day of month without leading zeros: "time:j"<br>
+
+				</p>
+			</p>
+		</div>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="padding5px nomargin">
+			<i class="fa fa-bolt fa-lg padding5pxlr"></i>
+			Current rules
+		</h3>
+	</div>
+	<table class="table">
+		<tr>
+			<th>#</th>
+			<th>Rule Name</th>
+			<th>Sensor name</th>
+			<th>Operator</th>
+			<th>Value</th>
+			<th>Notes</th>
+			<th>Delete</th>
+			<th>Test</th>
+		</tr>
+
+		<?php
+			// Loop through all rules
+			foreach ($this->rules_list as $rule):
+		?>
+				<tr>
+					<td><?=$rule['ruleID']?></td>
+					<td><?=$rule['ruleName']?></td>
+					<td><?=$rule['sensorName']?></td>
+					<td><?=$rule['rule']?></td>
+					<td><?=$rule['value']?></td>
+					<td><?=$rule['notes']?></td>
+
+					<td>
+						<form action="/manage-rules/" method="POST">
+						<input type="hidden" name="action" value="delete">
+						<input type="hidden" name="id" value="<?=$rule['ruleID']?>">
+						<button type="submit" class="a_del tippy btn btn-danger btn-sm" title="Delete rule '<?=$rule['ruleName']?>'" data-actionid="<?=$rule['ruleID']?>" data-actionname="<?=$rule['ruleName']?>">
+							<i class="fa fa-times-circle fa-lg"></i>
+						</button>
+						</form>
+					</td>
+					<td>
+						<button class="rule_test_btn tippy btn btn-success btn-sm" title="Test rule '<?=$rule['ruleName']?>'" data-actionid="<?=$rule['ruleID']?>" data-actionname="<?=$rule['ruleName']?>">
+							<i class="fa fa-play-circle fa-lg"></i>
+						</button>
+					</td>
+				</tr>
+		<?php
+			endforeach;
+		?>
+
+	</table>
+</div>
+
+
+
+
+<div class="row" style="margin-top:50px;">
+	<div class="col-xs-6 col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="padding5px nomargin">
+					<i class="fa fa-plus fa-lg padding5pxlr"></i>
+					Add new rule
+				</h3>
+			</div>
+			<div class="panel-body">
+				<form action="/manage-rules/" method="POST">
+					<div class="form-group">
+						<label>Rule name</label>
+						<i 
+							onclick="bootbox.alert('<h3>Rule name</h3>You can choose any rule name you wish as long as it\'s not longer than 100 characters. Short names are suggested as the rules-list will otherwise get very long for commands that have many rules');" 
+							class="fa fa-question-circle help-btn tippy"
+							title="Click for help"
+						>
+						</i>
+						<input class="form-control" name="name" placeholder="Rule name">
+					</div>
+					<div class="form-group">
+						<label>Sensor name</label>
+						<i 
+							onclick="bootbox.alert('<h3>Rule\'s Sensor name</h3>This is the sensor where we get the value to compare from. To use rules you must have first sensors set up at Manage-sensors-page. You can only select one sensor per one rule. Always use `Sensor name`, not ID or something else.<br>You can also use time:*operator* as sensor name to get any time based numbers. For further instructions on that, check the readme.<br>Maximum length for sensor name is 100 characters.');" 
+							class="fa fa-question-circle help-btn tippy"
+							title="Click for help"
+						>
+						</i>
+						<input class="form-control" name="sensor" placeholder="temp_1">
+					</div>
+					<div class="form-group">
+						<label>Operator</label>
+						<i 
+							onclick="bootbox.alert('<h3>Rules\'s operator</h3>Select one:<br>Sensor value must be:<br>> (Greater than)<br>< (Less than)<br>= (Equals)');" 
+							class="fa fa-question-circle help-btn tippy"
+							title="Click for help"
+						>
+						</i>
+						<select class="form-control" name="operator">
+							<option>></option>
+							<option><</option>
+							<option>=</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Value</label>
+						<i 
+							onclick="bootbox.alert('<h3>Rule\'s Value</h3>We\'ll compare the sensors value to this value. Depending on comparison operator this must be greater, lower or equal to sensor value for the rule to return true.');" 
+							class="fa fa-question-circle help-btn tippy"
+							title="Click for help"
+						>
+						</i>
+						<input class="form-control" name="value" placeholder="temp_1">
+					</div>
+					<div class="form-group">
+						<label>Notes</label>
+						<textarea rows="4" name="notes" class="form-control"></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary">Add</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-xs-6 col-md-8">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="padding5px nomargin">
+					<i class="fa fa-list-ul fa-lg padding5pxlr"></i>
+					Available sensors
+				</h3>
+			</div>
+			<table class="table limit-table">
+				<tr>
+					<th class="col-md-1">#</th>
+					<th>Name</th>
+					<th>cmd_name</th>
+					<th>Current value</th>
+					<th>Last update</th>
+					<th>Show on UI</th>
+					<th>Notes</th>
+				</tr>
+
+				<?php
+					// Loop through all actions
+					foreach ($this->sensors_list as $sensor):
+				?>
+						<tr>
+							<td><?=$sensor['sensorID']?></td>
+							<td><?=$sensor['name']?></td>
+							<td><?=$sensor['cmd_name']?></td>
+							<td><?=$sensor['currentVal']?></td>
+							<td><?=$sensor['lastUpdate']?></td>
+							<td><?=$sensor['showOnUI']?></td>
+							<td><?=$sensor['notes']?></td>
+						</tr>
+				<?php
+					endforeach;
+				?>
+			</table>
+		</div>
+	</div>
+</div>
