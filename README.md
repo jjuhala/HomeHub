@@ -55,9 +55,12 @@ If you wake up 5 AM to your ceiling lights blinking or refrigerator temperature 
 If you found this useful, feel free to donate:  
 BTC: 1Mz9JDmed8ZWMnMCyMK4fpiboD2eggNGVF  
 Doge: DJ2z5FfP5EAHmAw3f2V9tyG4UwkEM1aiTJ  
-Paypal: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FHCUMTL6FPU6L&lc=US&item_name=JJJ&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted  
+Paypal: [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FHCUMTL6FPU6L&lc=US&item_name=JJJ&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)  
   
 If you've build a home automation system using HomeHub, I'd be very interested in hearing what kind of system you've put together.  
   
   
-Cheers, Janne Juhala  
+HomeHub is licensed under the terms of the MIT license.
+
+
+© 2014 Janne Juhala  

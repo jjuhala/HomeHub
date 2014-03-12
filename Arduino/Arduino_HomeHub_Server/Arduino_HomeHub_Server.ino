@@ -1,9 +1,14 @@
-/*
- ---| Arduino Server for HomeHub home automation system |---
- 
- Very early code.
- Author: Janne Juhala, http://jjj.fi/
- Date: 11th March 2014
+/*  
+ *  Arduino Server for HomeHub home automation system
+ *  Early dev version
+ *  
+ *      Copyright (C) 2014 Janne Juhala 
+ *      http://jjj.fi/
+ *      janne.juhala@outlook.com
+ *      https://github.com/jjuhala/HomeHub
+ *
+ *  This project is licensed under the terms of the MIT license.
+ *  
  */
  
  

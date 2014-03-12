@@ -1,15 +1,22 @@
-/*
- ---| Basic Light Switch client for HomeHub homeautomation system |---
- 
- This is a basic light switch client. 
- The state can be switched by cutting the power and restoring
- it or with message (on/off/switch) sent over 433MHz.
- You have to add spring (or foam or other bouncy material)
- to normal light switch so it never gets witched to "off" 
- beacuse then you couldn't turn the lamp on over 433MHz anymore.
- Author: Janne Juhala, http://jjj.fi/
- Date: 9th March 2014
- Circuit & hardware: http://xl.jjj.fi/bWIqYU.png
+/*  
+ *  Basic Light Switch client for HomeHub homeautomation system
+ *  
+ *  This is a basic light switch client. 
+ *  The state can be switched by cutting the power and restoring
+ *  it or with message (on/off/switch) sent over 433MHz.
+ *  You have to add spring (or foam or other bouncy material)
+ *  to normal light switch so it never gets witched to "off" 
+ *  beacuse then you couldn't turn the lamp on over 433MHz anymore.
+ *  Circuit & hardware: http://xl.jjj.fi/bWIqYU.png
+ *  
+ *  
+ *      Copyright (C) 2014 Janne Juhala 
+ *      http://jjj.fi/
+ *      janne.juhala@outlook.com
+ *      https://github.com/jjuhala/HomeHub
+ *
+ *  This project is licensed under the terms of the MIT license.
+ *  
  */
 
 /* -------------------- Settings -------------------- */
