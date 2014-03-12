@@ -28,6 +28,8 @@
 			// Convert checkbox yes/no to tinyint(1)
 			$_POST['showOnUI'] = (isset($_POST['showOnUI']) && $_POST['showOnUI'] == 'on' ? '1' : '0'); 
 
+
+			// Validate length
 			foreach($data_len_validate as $vdata => $maxlen) {
 				if (strlen($_POST[$vdata]) > $maxlen) {
 					$this->addError('Error adding new Action!',
@@ -36,15 +38,14 @@
 				}
 			}
 
-			// Make sure there's no spaces in name or lists
+			// List of items which can't contain spaces
 			$data_space_validate = array
 			(
-				'name',
-				'commandList',
-				'triggers',
 				'showOnUI'
 			);
 
+
+			// Validate spaceless items
 			foreach($data_space_validate as $vdata) {
 				if (preg_match('/\s/',$_POST[$vdata])) {
 					$this->addError('Error adding new Action!',
