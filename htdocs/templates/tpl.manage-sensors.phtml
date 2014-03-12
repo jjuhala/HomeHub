@@ -1,0 +1,123 @@
+
+
+
+<div class="row">
+	<div class="col-xs-6 col-md-7">
+		<div class="page-header">
+			<h1>Manage sensors</h1>
+			<h2><small>Add, delete or edit sensors</small></h2>
+		</div>
+		
+	</div>
+	<div class="col-xs-6 col-md-5" style="margin-top:10px;float:right;">
+		<div class="alert alert-info">
+			<p>
+				<strong>Sensors</strong><br>
+				- are physical devices that give some information.<br>
+				- for every physical sensor sending data, you must have a sensor set up here matching the cmd_name with the sensor.<br>
+				- values can be used as data for rules. I.e. we can set up an action to turn the lights on when a door opens and there's dark in the vestibule. In the example the door must have a sensor which is set as trigger for the action. The light sensor and door sensor must be set as rule for "lights on"-command (it's dark and door opens, not closes).<br>
+				- values can be logged for making pretty graphs out of the data at <a href="/history/">history-section</a>.<br>
+				</p>
+		</div>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="padding5px nomargin">
+			<i class="fa fa-bolt fa-lg padding5pxlr"></i>
+			Current sensors
+		</h3>
+	</div>
+	<table class="table">
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>cmd_name</th>
+			<th>Current Val</th>
+			<th>Last update</th>
+			<th>Show On UI</th>
+			<th>notes</th>
+			<th>Delete</th>
+		</tr>
+
+		<?php
+			// Loop through all sensors
+			foreach ($this->sensors_list as $sensor):
+		?>
+				<tr>
+					<td><?=$sensor['sensorID']?></td>
+					<td><?=$sensor['name']?></td>
+					<td><?=$sensor['cmd_name']?></td>
+					<td><?=$sensor['currentVal']?></td>
+					<td><?=$sensor['lastUpdate']?></td>
+					<td><?=$sensor['showOnUI']?></td>
+					<td><?=$sensor['notes']?></td>
+
+					<td>
+						<form action="/manage-sensors/" method="POST">
+						<input type="hidden" name="action" value="delete">
+						<input type="hidden" name="id" value="<?=$sensor['sensorID']?>">
+						<button type="submit" class="a_del tippy btn btn-danger btn-sm" title="Delete Sensor '<?=$sensor['ruleName']?>'" data-actionid="<?=$sensor['sensorID']?>" data-actionname="<?=$sensor['ruleName']?>">
+							<i class="fa fa-times-circle fa-lg"></i>
+						</button>
+						</form>
+					</td>
+				</tr>
+		<?php
+			endforeach;
+		?>
+
+	</table>
+</div>
+
+
+
+
+<div class="row" style="margin-top:50px;">
+	<div class="col-xs-6 col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="padding5px nomargin">
+					<i class="fa fa-plus fa-lg padding5pxlr"></i>
+					Add a new sensor
+				</h3>
+			</div>
+			<div class="panel-body">
+				<form action="/manage-sensors/" method="POST">
+					<div class="form-group">
+						<label>Sensor name</label>
+						<i 
+							onclick="bootbox.alert('<h3>Sensor name</h3>You can choose any rule name you wish as long as it\'s not longer than 100 characters.');" 
+							class="fa fa-question-circle help-btn tippy"
+							title="Click for help"
+						>
+						</i>
+						<input class="form-control" name="name" placeholder="Rule name">
+					</div>
+					<div class="form-group">
+						<label>cmd_name</label>
+						<i 
+							onclick="bootbox.alert('<h3>cmd_name</h3>This name must match the physical sensor\'s name it sends the data with. Short names are suggested so it gets sent quicker over 433MHz RF and thus there\'s better chance for it to go through (longer messages are more likely to get corrupted)');" 
+							class="fa fa-question-circle help-btn tippy"
+							title="Click for help"
+						>
+						</i>
+						<input class="form-control" name="cmd_name" placeholder="temp_1">
+					</div>
+
+					<div class="checkbox">
+						<label><input type="checkbox" name="showOnUI">Show current value at dashboard</label>
+					</div>
+
+					<div class="form-group">
+						<label>Notes</label>
+						<textarea rows="4" name="notes" class="form-control"></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary">Add</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</div>
