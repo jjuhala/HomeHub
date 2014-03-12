@@ -1,5 +1,5 @@
 <?php
-// HomeHub configuraion file
+// HomeHub configuration file
 //                              ↓  Edit these  ↓
 return array(
     'notification_email' =>     'your@email.com',   /* Email where you want notifications */
