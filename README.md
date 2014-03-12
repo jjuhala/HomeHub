@@ -1,3 +1,5 @@
+![LOGO](Assets/Logo_hollow_with_text_722x.png)
+
 # HomeHub home automation system
   
 HomeHub is an open source home automation project built with C++ (Arduino), PHP+MySQL (Server), HTML5 etc (Frontend).
