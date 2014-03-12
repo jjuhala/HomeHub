@@ -33,36 +33,34 @@
 		<tr>
 			<th>#</th>
 			<th>Name</th>
-			<th>Commands</th>
-			<th>Triggers</th>
-			<th>SoUI</th>
+			<th>Command</th>
+			<th>Rule list</th>
 			<th>Notes</th>
 			<th>Delete</th>
 			<th>Run</th>
 		</tr>
 
 		<?php
-			// Loop through all actions
-			foreach ($this->actions_list as $action):
+			// Loop through all commands
+			foreach ($this->commands_list as $command):
 		?>
 				<tr>
-					<td><?=$action['actionID']?></td>
-					<td><?=$action['name']?></td>
-					<td><?=$action['commandList']?></td>
-					<td><?=$action['triggers']?></td>
-					<td><?=$action['showOnUI']?></td>
-					<td><?=$action['notes']?></td>
+					<td><?=$command['commandID']?></td>
+					<td><?=$command['name']?></td>
+					<td><?=$command['command']?></td>
+					<td><?=$command['ruleList']?></td>
+					<td><?=$command['notes']?></td>
 					<td>
-						<form action="/manage-actions/" method="POST">
+						<form action="/manage-commands/" method="POST">
 						<input type="hidden" name="action" value="delete">
-						<input type="hidden" name="action_id" value="<?=$action['actionID']?>">
-						<button type="submit" class="a_del tippy btn btn-danger btn-sm" title="Delete action '<?=$action['name']?>'" data-actionid="<?=$action['actionID']?>" data-actionname="<?=$action['name']?>">
+						<input type="hidden" name="id" value="<?=$command['commandID']?>">
+						<button type="submit" class="a_del tippy btn btn-danger btn-sm" title="Delete action '<?=$command['name']?>'" data-actionid="<?=$command['commandID']?>" data-actionname="<?=$command['name']?>">
 							<i class="fa fa-times-circle fa-lg"></i>
 						</button>
 						</form>
 					</td>
 					<td>
-						<button class="a_run tippy btn btn-success btn-sm" title="Run action '<?=$action['name']?>'" data-actionid="<?=$action['actionID']?>" data-actionname="<?=$action['name']?>">
+						<button class="c_run tippy btn btn-success btn-sm" title="Run action '<?=$command['name']?>'" data-actionid="<?=$command['actionID']?>" data-actionname="<?=$command['name']?>">
 							<i class="fa fa-play-circle fa-lg"></i>
 						</button>
 					</td>
@@ -87,7 +85,7 @@
 				</h3>
 			</div>
 			<div class="panel-body">
-				<form action="/manage-actions/" method="POST">
+				<form action="/manage-commands/" method="POST">
 					<div class="form-group">
 						<label>Command name</label>
 						<i 
@@ -140,28 +138,24 @@
 			<table class="table limit-table">
 				<tr>
 					<th class="col-md-1">#</th>
-					<th>Name</th>
-					<th>Command</th>
+					<th>Rule Name</th>
+					<th>Sensor Name</th>
 					<th>Rule list</th>
+					<th>Value</th>
 					<th>Notes</th>
-					<th class="col-md-1">Run</th>
 				</tr>
 
 				<?php
 					// Loop through all actions
-					foreach ($this->commands_list as $command):
+					foreach ($this->rules_list as $rule):
 				?>
 						<tr>
-							<td><?=$command['commandID']?></td>
-							<td><?=$command['name']?></td>
-							<td><?=$command['command']?></td>
-							<td><?=$command['ruleList']?></td>
-							<td><?=$command['notes']?></td>
-							<td>
-								<button class="c_run tippy btn btn-success btn-sm" title="Run command '<?=$command['name']?>'" data-actionid="<?=$command['commandID']?>" data-actionname="<?=$command['name']?>">
-									<i class="fa fa-play-circle fa-lg"></i>
-								</button>
-							</td>
+							<td><?=$rule['ruleID']?></td>
+							<td><?=$rule['ruleName']?></td>
+							<td><?=$rule['sensorName']?></td>
+							<td><?=$rule['rule']?></td>
+							<td><?=$rule['value']?></td>
+							<td><?=$rule['notes']?></td>
 						</tr>
 				<?php
 					endforeach;
