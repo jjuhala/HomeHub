@@ -7,6 +7,8 @@ RewriteRule ^(.*)index.php$ /$1 [R=301,L]
 #  Pwetty urls --
 #    /foo -> /foo/ (301)
 #    /foo/ -> index.php?q=foo
+#    /api/run_foo?a=bar -> /api/run.php?q=foo&a=bar
+
+RewriteRule ^api/run_([^\.]+)$ api/run.php?q=$1&%{QUERY_STRING} [L]
 RewriteRule ^([a-zA-Z0-9_-]+)$ /$1/ [R=301,L]
-RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?q=$1
-# RewriteRule ^([a-zA-Z0-9_-]+)/(.+)$ index.php?q=$1&qa=$2
+RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?q=$1 [L]
