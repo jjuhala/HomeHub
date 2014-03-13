@@ -31,8 +31,10 @@ class Brains {
 		$this->pdo = $this->ConnectPdo();
 
 		$wcmd = $get['q'];
-		if ($wcmd == "action") {
+		if ($wcmd == "run_action") {
 			$this->RunAction($get['name']);
+		} else {
+			$this->kill('Unknown api call.');
 		}
 	}
 
