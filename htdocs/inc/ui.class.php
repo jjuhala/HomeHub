@@ -18,7 +18,6 @@ class UI {
 	protected $error_template = 'error.phtml';
 	protected $debug_template = 'debug.phtml';
 	protected $vars = array();
-    protected $conf = array();
 
 
     // By default don't show any errors or notices
@@ -37,7 +36,8 @@ class UI {
             kill("Footer template missing ($this->template_dir$this->footer_template)",false);
         }
 
-
+        // By default add container divs in _head
+        $this->inc_cont_in_head = true;
     }
 
     // Validate input, require additional php dependencies and render the page

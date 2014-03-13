@@ -42,6 +42,17 @@ $(".a_run").click(function(){
 	}
 });
 
+$(".db_action_btn").click(function(){
+	var request_reply = json_req("/api/run_action?s="+api_secret+"&name=" + encodeURIComponent($(this).attr('data-actionname')));
+	if (request_reply.status == "ok") {
+		toastr.success("Successfully executed action \"" + $(this).attr('data-actionname') + "\"","Success");
+	} else {
+		toastr.error(request_reply,"Fail");
+	}
+});
+
+
+
 
 function json_req(urli){
 	var rdata = "Request failed";

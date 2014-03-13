@@ -18,6 +18,118 @@
    opacity: 1 !important; 
 }*/
 
+
+/* -- fixed navi -- */
+
+body {
+padding-top:50px;
+}
+
+
+/* -- home header -- */
+#homeheader {
+	position:relative;
+	background-color:#404040;
+	color:#fff;
+	padding:20px 0 40px 0;
+	height:400px;
+	background-image: url('/img/hero_bg.png');
+	background-size: cover;
+    background-repeat: no-repeat;
+	margin-bottom:40px;
+}
+#herologo {
+	background-image: url('/img/hero_logo.png');
+	width: 100%;
+	height: 350px;
+	background-repeat: no-repeat;
+	background-position:center top;
+}
+#herobar {
+	position:absolute;
+	bottom:0;
+}
+#herobar .itm {
+	border:1px solid #ccc;
+	border-style:solid solid none none;
+	padding:5px 12px;
+	background-color:rgba(200,200,200,0.15);
+	float:left;
+}
+#herobar .itm .fa-check {
+	color:#97DA31;
+}
+#herobar .itm.cmd {
+	width:330px;
+}
+#herobar .itm.cmd .input-group {
+	float:left;
+	width:150px;
+}
+#herobar .itm.cmd .input-group .lessheight {
+	margin:-2px 0 -2px 5px;
+	height:24px;
+	font-size:12px;
+	line-height: 12px;
+	opacity: 0.7;
+}
+#herobar .itm.cmd .input-group .lessheight.btn:hover {
+	opacity:1;
+}
+#herobar .itm.cmd .input-group .lessheight:focus {
+	opacity: 0.9;
+}
+#herobar .itm.cmd .fl {
+	float:left;
+}
+#herobar .itm.l {
+	border-left-style: solid;
+	-webkit-border-top-left-radius: 3px;
+	-moz-border-radius-topleft: 3px;
+	border-top-left-radius: 3px;
+}
+#herobar .itm.r {
+	-webkit-border-top-right-radius: 3px;
+	-moz-border-radius-topright: 3px;
+	border-top-right-radius: 3px;
+}
+
+
+/* -- dashboard -- */
+.smaller_jumbo {
+	padding:14px 30px !important;
+}
+.smaller_jumbo h2 {
+	margin-top:7px;
+	margin-bottom: 15px;
+}
+.db_action_btn {
+	white-space: normal;
+	text-align: left;
+	font-size:12px;
+	width:100%;
+}
+.db_action_btn h4 {
+	margin:2px 0 3px 0;
+}
+.db_sensor_btn {
+	cursor:normal;
+	white-space: normal;
+	text-align: center;
+	font-size:12px;
+	width:100%;
+}
+.db_sensor_btn h4 {
+	margin:2px 0 0 0;
+	font-size:16px;
+	font-weight: 700;
+}
+.db_sensor_btn h3 {
+	margin:5px 0 3px 0;
+}
+
+
+
 .help-btn {
 	cursor: help;
 }
@@ -57,9 +169,6 @@ font-size: 20em;
 
 html, body {
 height: 100%;
-}
-body {
-padding-top:75px;
 }
 #wrap {
 min-height: 100%;

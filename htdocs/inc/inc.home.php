@@ -9,5 +9,9 @@
      *
      */
      
+    $this->inc_cont_in_head = false;
+
+    $this->actions_list = $this->query("SELECT * FROM hh_actions WHERE showOnUI = 1");
+    $this->sensors_list = $this->query("SELECT * FROM hh_sensors WHERE showOnUI = 1");
 
 ?>

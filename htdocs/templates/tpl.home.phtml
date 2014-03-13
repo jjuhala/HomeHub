@@ -1,20 +1,112 @@
-<div class="jumbotron">
-	<h1>Dashboard</h1>
-
-	<h3>Sensors</h3>
-	<div class="row">
-		<div class="col-xs-6 col-md-2">
-
-		</div>
-	</div>
-
-	<h3>Actions</h3>
-	<div class="row">
-		<div class="col-xs-6 col-md-2">
-
+<div id="homeheader">
+	<div class="container">
+		<div id="herologo"></div>
+		<div id="herobar">
+					<div class="itm l">
+						<i class="fa fa-check fa-lg padding5pxlr"></i> No errors
+					</div>
+					<div class="itm">
+						<i class="fa fa-check fa-lg padding5pxlr"></i> Last heartbeat: 29 sec ago
+					</div>
+					<div class="itm">
+						<i class="fa fa-check fa-lg padding5pxlr"></i> Up-to-date
+					</div>
+					<div class="itm cmd r tippy" title="Send command directly to Arduino server. This is a raw command, not one you set up at Manage-commands page">
+						<div class="fl">Manually run command:</div>
+						<div class="input-group input-group-sm">
+					      
+					      <input type="text" class="lessheight form-control">
+					      
+					      <span class="input-group-btn">
+					        <button class="btn btn-success lessheight" type="button">
+					        	<i class="fa fa-chevron-right fa-lg padding5pxlr"></i>
+					        </button>
+					      </span>
+					    </div>
+					</div>
+					<!-- <div class="itm r">BTN</div> -->
 		</div>
 	</div>
 </div>
+
+
+
+<div id="wrap">
+<div class="container" id="main">
+
+
+<script>
+var api_secret = "<?=$this->conf['api_secret']?>";
+</script>
+<!-- <div class="jumbotron smaller_jumbo"> -->
+	<!-- <h2>Quick view</h2> -->
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			
+			<h2 class="nomargin padding5px">
+				<i class="fa fa-eye fa-lg padding5pxlr"></i>
+				Quick view
+			</h2>
+		</div>
+		<div class="panel-body">
+	
+
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<i class="fa fa-signal fa-lg padding5pxlr"></i>
+			<strong>Sensors</strong>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<?php if (count($this->sensors_list) < 1) : ?>
+
+					No sensors set up to show here yet. You can set up some at <a href="/manage-sensors/">Manage-sensors</a>-page
+
+				<?php endif; ?>
+				<?php foreach($this->sensors_list as $sensor) : ?>
+					<div class="col-xs-6 col-md-3">
+						<div class="db_sensor_btn btn btn-primary" data-actionname="<?=$sensor['name']?>">
+							<!-- <div class="caption"> -->
+								<h4><?=$sensor['name']?></h4>
+								<h3><?=$sensor['currentVal']?></h3>
+							<!-- </div> -->
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</div>
+
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<i class="fa fa-signal fa-lg padding5pxlr"></i>
+			<strong>Actions</strong>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<?php if (count($this->actions_list) < 1) : ?>
+
+					No actions set up to show here yet. You can set up some at <a href="/manage-actions/">Manage-actions</a>-page
+
+				<?php endif; ?>
+				<?php foreach($this->actions_list as $action) : ?>
+					<div class="col-xs-6 col-md-3">
+						<div class="db_action_btn btn btn-primary" data-actionname="<?=$action['name']?>">
+							<!-- <div class="caption"> -->
+								<h4><?=$action['name']?></h4>
+								<?=$action['notes']?>
+							<!-- </div> -->
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</div>
+
+		</div>
+	</div>
+
+<!-- </div> -->
 
 <h2>Quick links</h2>
 <p>
