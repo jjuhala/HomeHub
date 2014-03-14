@@ -31,7 +31,9 @@ return array(
         'manage-rules',
         'manage-actions',
         'manage-commands',
-        'manage-sensors'
+        'manage-sensors',
+        'history',
+        'log'
     ),
 
 
