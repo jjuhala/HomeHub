@@ -23,16 +23,18 @@ class Brains {
 		// Authorize request (get ['s'] must match api_secret from settings)
 		$this->Authorize($get);
 
-		// If q and name are not set, die
+		// If q and msg are not set, die
 		if (!isset($get['q'])) $this->kill("No cmd given");
-		if (!isset($get['name'])) $this->kill("No name given");
+		if (!isset($get['msg'])) $this->kill("No msg given");
 
 		// connect database
 		$this->pdo = $this->ConnectPdo();
 
 		$wcmd = $get['q'];
 		if ($wcmd == "run_action") {
-			$this->RunAction($get['name']);
+			$this->RunAction($get['msg']);
+		} elseif ($wcmd == "sensor_set") {
+			$this->SensorSet($get['msg']);
 		} else {
 			$this->kill('Unknown api call.');
 		}
@@ -50,7 +52,54 @@ class Brains {
 		}
 	}
 
-	public function RunAction($action) {
+
+	public function SensorSet($msg) {
+		echo $msg;
+		// Die if msg doesn't contain :
+		if (strpos($msg,':') === false) $this->kill('Message must have : as name:data delimiter');
+		$name = explode(':', $msg)[0];
+		$value = explode(':', $msg)[1];
+		$this->query(
+			"UPDATE hh_sensors SET currentVal = :val WHERE cmd_name = :name",
+			array(
+				':val' => $value,
+				':name' => $name
+				),
+			false
+		);
+
+		// Sensor value updated!
+		$this->AddMessage("Sensor value updated");
+
+		// Now let's see if this sensor should trigger any actions
+
+
+
+
+		$triggered_actions = $this->GetActionsForTrigger($name);
+		if (count($triggered_actions) < 1) {
+			$this->AddMessage("No actions triggered");
+		} else {
+			foreach($triggered_actions as $tra) {
+				$this->AddMessage("Triggered action '".$tra['name']."'");
+				$this->RunAction($tra['name'],false);
+			}
+		}
+
+
+		$this->SetStatus("ok");
+		$this->PrintResult();
+	}
+
+
+	public function GetActionsForTrigger($trigger) {
+		$res = $this->query('SELECT * FROM hh_actions WHERE triggers LIKE :trigger',array(':trigger' => '%'.$trigger.'%'));
+		return $res;
+		//var_dump($res);
+		//echo "^^^^";
+	}
+
+	public function RunAction($action,$runone = true) {
 		// Get wanted action
 		$act_arr = $this->query(
 			'SELECT * FROM hh_actions WHERE name = :action_name',
@@ -68,11 +117,11 @@ class Brains {
 		$commands_array = explode('|', $act_arr['commandList']);
 
 		// Run each command
-		$this->RunCommand($commands_array);
+		$this->RunCommands($commands_array,$runone);
 	}
 
 	// Runs commands, takes array of commands to run
-	public function RunCommand($commands) {
+	public function RunCommands($commands,$runone = true) {
 		// Die if no array given
 		if (!is_array($commands)) $this->kill("Trying to run command but the given parameter is not an array");
 
@@ -107,9 +156,13 @@ class Brains {
 			}
 		}
 
-		// All done
-		$this->SetStatus("ok");
-		$this->PrintResult();
+
+		// If only one action is getting executed, we're done
+		if ($runone) {
+			$this->SetStatus("ok");
+			$this->PrintResult();
+		}
+		// Otherwise we're triggering one or more actions and triggers-method handles the result printing
 
 	}
 
