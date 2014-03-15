@@ -11,7 +11,7 @@
     
 class Brains {
 	protected $vars = array();
-
+	protected $arduinoReply = array();
 	var $result = array(
 			"status" => "error",
 			"messages" => array ()
@@ -34,6 +34,7 @@ class Brains {
 		if ($wcmd == "run_action") {
 			$this->RunAction($get['msg']);
 		} elseif ($wcmd == "sensor_set") {
+			$this->fromArduino = isset($get['f']);
 			$this->SensorSet($get['msg']);
 		} else {
 			$this->kill('Unknown api call.');
@@ -44,6 +45,7 @@ class Brains {
 
 	public function __construct() {
 		$this->ResultPrinted = false;
+		$this->fromArduino = false;
 	}
 
 	public function Authorize($get) {
@@ -54,7 +56,6 @@ class Brains {
 
 
 	public function SensorSet($msg) {
-		echo $msg;
 		// Die if msg doesn't contain :
 		if (strpos($msg,':') === false) $this->kill('Message must have : as name:data delimiter');
 		$name = explode(':', $msg)[0];
@@ -72,20 +73,16 @@ class Brains {
 		$this->AddMessage("Sensor value updated");
 
 		// Now let's see if this sensor should trigger any actions
-
-
-
-
 		$triggered_actions = $this->GetActionsForTrigger($name);
 		if (count($triggered_actions) < 1) {
 			$this->AddMessage("No actions triggered");
 		} else {
 			foreach($triggered_actions as $tra) {
 				$this->AddMessage("Triggered action '".$tra['name']."'");
-				$this->RunAction($tra['name'],false);
+				$this->RunAction($tra['actionID'],false);
 			}
 		}
-
+		
 
 		$this->SetStatus("ok");
 		$this->PrintResult();
@@ -93,17 +90,18 @@ class Brains {
 
 
 	public function GetActionsForTrigger($trigger) {
-		$res = $this->query('SELECT * FROM hh_actions WHERE triggers LIKE :trigger',array(':trigger' => '%'.$trigger.'%'));
+		$res = $this->query(
+			'SELECT * FROM hh_actions WHERE triggers LIKE :trigger',
+			array(':trigger' => '%'.$trigger.'%')
+		);
 		return $res;
-		//var_dump($res);
-		//echo "^^^^";
 	}
 
 	public function RunAction($action,$runone = true) {
 		// Get wanted action
 		$act_arr = $this->query(
-			'SELECT * FROM hh_actions WHERE name = :action_name',
-			array(':action_name' => $action)
+			'SELECT * FROM hh_actions WHERE actionID = :action_id',
+			array(':action_id' => $action)
 		);
 		if (count($act_arr) !== 1) $this->kill("Requested action not found");
 		
@@ -249,18 +247,26 @@ class Brains {
 
 	// Sends the command to server
 	public function ExecuteCommand($command,$cmdname) {
-		$response = @file_get_contents('http://'.$this->conf['arduino_ip'].':'.$this->conf['arduino_port'].'/'.$command);
-		if (strpos($response,'OK|ProcessedCmd') === false) {
-
-			$this->kill(
-				"Tried to execute command, but arduino server didn't respond at " . 
-				$this->conf['arduino_ip'].':'.$this->conf['arduino_port']);
-			
+		if ($this->fromArduino) {
+			// Dont request arduino as arduino made this request
+			// respond with commands instead
+			$this->arduinoReply[] = $command;
 		} else {
-			$this->AddMessage(
-				'Command \''.$command.
-				'\' (name: \''.$cmdname.'\') executed.');
+			ini_set('default_socket_timeout', 4);
+			$response = @file_get_contents('http://'.$this->conf['arduino_ip'].':'.$this->conf['arduino_port'].'/'.$command);
+			if (strpos($response,'OK|ProcessedCmd') === false) {
+
+				$this->kill(
+					"Tried to execute command, but arduino server didn't respond at " . 
+					$this->conf['arduino_ip'].':'.$this->conf['arduino_port']);
+				
+			} else {
+				$this->AddMessage(
+					'Command \''.$command.
+					'\' (name: \''.$cmdname.'\') executed.');
+			}
 		}
+
 	}
 
 
@@ -298,7 +304,13 @@ class Brains {
 
     public function PrintResult() {
     	$this->ResultPrinted = true;
-    	echo json_encode($this->result);
+    	if ($this->fromArduino) {
+    		echo "S>".implode(';',$this->arduinoReply)."<E";
+    	} else {
+    		echo json_encode($this->result);
+    	}
+    	
+    	
     	
     }
 
