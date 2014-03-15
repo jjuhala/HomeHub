@@ -15,10 +15,10 @@
 						<div class="fl">Manually run command:</div>
 						<div class="input-group input-group-sm">
 					      
-					      <input type="text" class="lessheight form-control">
+					      <input type="text" class="lessheight form-control raw_cmd_input">
 					      
 					      <span class="input-group-btn">
-					        <button class="btn btn-success lessheight" type="button">
+					        <button class="btn btn-success lessheight raw_send" type="button">
 					        	<i class="fa fa-chevron-right fa-lg padding5pxlr"></i>
 					        </button>
 					      </span>
@@ -65,7 +65,7 @@ var api_secret = "<?=$this->conf['api_secret']?>";
 				<?php endif; ?>
 				<?php foreach($this->sensors_list as $sensor) : ?>
 					<div class="col-xs-6 col-md-3">
-						<div class="db_sensor_btn btn btn-primary" data-actionname="<?=$sensor['name']?>">
+						<div class="db_sensor_btn btn btn-primary">
 							<!-- <div class="caption"> -->
 								<h4><?=$sensor['name']?></h4>
 								<h3><?=$sensor['currentVal']?></h3>
@@ -91,7 +91,7 @@ var api_secret = "<?=$this->conf['api_secret']?>";
 				<?php endif; ?>
 				<?php foreach($this->actions_list as $action) : ?>
 					<div class="col-xs-6 col-md-3">
-						<div class="db_action_btn btn btn-primary" data-actionname="<?=$action['name']?>">
+						<div class="db_action_btn btn btn-primary" data-actionid="<?=$action['actionID']?>">
 							<!-- <div class="caption"> -->
 								<h4><?=$action['name']?></h4>
 								<?=$action['notes']?>
@@ -107,11 +107,11 @@ var api_secret = "<?=$this->conf['api_secret']?>";
 	</div>
 
 <!-- </div> -->
-
+<!-- 
 <h2>Quick links</h2>
 <p>
 	...
-</p>
+</p> -->
 
 
 <h2>Log</h2>
@@ -119,5 +119,5 @@ var api_secret = "<?=$this->conf['api_secret']?>";
 	Shows last 15 lines, auto-update every 2 seconds. <a href="/log/">Full log »</a>
 </p>
 <div class="well">
-	Log here...
+	...
 </div>

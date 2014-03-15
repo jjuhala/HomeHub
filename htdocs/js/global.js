@@ -43,7 +43,7 @@ $(".a_run").click(function(){
 });
 
 $(".db_action_btn").click(function(){
-	var request_reply = json_req("/api/run_action?s="+api_secret+"&name=" + encodeURIComponent($(this).attr('data-actionname')));
+	var request_reply = json_req("/api/run_action?s="+api_secret+"&msg=" + encodeURIComponent($(this).attr('data-actionid')));
 	if (request_reply.status == "ok") {
 		toastr.success("Successfully executed action \"" + $(this).attr('data-actionname') + "\"","Success");
 	} else {
@@ -51,6 +51,15 @@ $(".db_action_btn").click(function(){
 	}
 });
 
+
+$(".raw_send").click(function(){
+	//var request_reply = json_req("/api/run_action?s="+api_secret+"&name=" + encodeURIComponent($(this).attr('data-actionname')));
+	//if (request_reply.status == "ok") {
+	toastr.success("Successfully sent command to Arduino Server","Success");
+	//} else { " + $(".raw_cmd_input").val() + 
+	//	toastr.error(request_reply,"Fail");
+	//}
+});
 
 
 
