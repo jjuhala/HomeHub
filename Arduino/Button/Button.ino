@@ -18,7 +18,7 @@
  */
 
 /* -------------------- Settings -------------------- */
-/* Quick press cmd */          String qCmd = "B1";
+/* Quick press cmd */          String qCmd = "B1:0";
 /* Enable long press */        boolean enableLong = false;
 /* Long press cmd */           String lCmd ="B1L";
 /* Long press time (ms) */     int lpTime = 1000;
