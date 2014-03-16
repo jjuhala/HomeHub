@@ -53,12 +53,12 @@ $(".db_action_btn").click(function(){
 
 
 $(".raw_send").click(function(){
-	//var request_reply = json_req("/api/run_action?s="+api_secret+"&name=" + encodeURIComponent($(this).attr('data-actionname')));
-	//if (request_reply.status == "ok") {
-	toastr.success("Successfully sent command to Arduino Server","Success");
-	//} else { " + $(".raw_cmd_input").val() + 
-	//	toastr.error(request_reply,"Fail");
-	//}
+	var request_reply = json_req("/api/raw_cmd?s="+api_secret+"&msg=" + encodeURIComponent($(".raw_cmd_input").val()));
+	if (request_reply.status == "ok") {
+		toastr.success("Successfully sent command to Arduino Server","Success");
+	} else {
+		toastr.error(request_reply,"Fail");
+	}
 });
 
 
