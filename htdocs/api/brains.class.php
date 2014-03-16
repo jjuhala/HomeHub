@@ -36,6 +36,10 @@ class Brains {
 		} elseif ($wcmd == "sensor_set") {
 			$this->fromArduino = isset($get['f']);
 			$this->SensorSet($get['msg']);
+		} elseif ($wcmd == "raw_cmd") {
+			$this->ExecuteCommand(urlencode($get['msg']),urlencode($get['msg']));
+			$this->SetStatus('ok');
+			$this->PrintResult();
 		} else {
 			$this->kill('Unknown api call.');
 		}
