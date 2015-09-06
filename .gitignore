@@ -1,2 +1,5 @@
-htdocs/_addn_settings.php
-Arduino/Arduino_HomeHub_Server_with_receive_oma/Arduino_HomeHub_Server_with_receive_oma.ino
+/vendor
+/node_modules
+Homestead.yaml
+Homestead.json
+.env
